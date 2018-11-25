@@ -6,14 +6,6 @@ rem %CAFFE2_ROOT%\build\Debug for Debug and
 rem %CAFFE2_ROOT%\build\Release for Release
 set CAFFE2_ROOT=%~dp0%\pytorch
 
-<<<<<<< HEAD
-rem Cloning repository if it doesn't exist
-if not exist pytorch (
-    set PYTORCH_BRANCH=windows-shared-build
-    set PYTORCH_REPO=ArutyunovG
-    call  %~dp0%..\..\internal\clone.bat
-    cd %ORIGINAL_DIR%
-=======
 cd %CAFFE2_ROOT%\..
 
 rem Cloning repository if it doesn't exist
@@ -24,7 +16,6 @@ if not exist pytorch (
 
 if NOT DEFINED DOWNLOAD_DEPS (
     set DOWNLOAD_DEPS=1
->>>>>>> peterjc123/master
 )
 
 rem Should build folder be deleted and build start from scratch?
@@ -44,21 +35,13 @@ if NOT DEFINED BUILD_RELEASE (
 
 rem msbuild /m: option value
 if NOT DEFINED MAX_JOBS (
-<<<<<<< HEAD
-    set MAX_JOBS=6
-=======
     set MAX_JOBS=%NUMBER_OF_PROCESSORS%
->>>>>>> peterjc123/master
 )
 
 if %REBUILD% EQU 1 (
     if exist %CAFFE2_ROOT%\build (
-<<<<<<< HEAD
-        rmdir %CAFFE2_ROOT%\build /s /q
-=======
         cd %CAFFE2_ROOT%
         python setup.py clean
->>>>>>> peterjc123/master
     )
 )
 
@@ -108,12 +91,6 @@ if not exist %CAFFE2_ROOT%\build (
     mkdir %CAFFE2_ROOT%\build
 )
 
-<<<<<<< HEAD
-rem Building Debug in %CAFFE2_ROOT%\build\Debug
-if %BUILD_DEBUG% EQU 1 (
-    set CONFIG=Debug
-    call msbuild.bat
-=======
 if %DOWNLOAD_DEPS% EQU 1 (
     call %~dp0%download_deps.bat
 )
@@ -123,18 +100,13 @@ if %BUILD_DEBUG% EQU 1 (
     set CONFIG=Debug
     call %~dp0%msbuild.bat
     if errorlevel 1 exit /b 1
->>>>>>> peterjc123/master
 )
 
 rem Building Release in %CAFFE2_ROOT%\build\Release
 if %BUILD_RELEASE% EQU 1 (
     set CONFIG=Release
-<<<<<<< HEAD
-    call msbuild.bat
-=======
     call %~dp0%msbuild.bat
     if errorlevel 1 exit /b 1
->>>>>>> peterjc123/master
 )
 
 cd %ORIGINAL_DIR%
